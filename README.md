@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NIVEX — site & moteur de réservation
 
-## Getting Started
+Site vitrine bilingue et système de rendez-vous pour **NIVEX**, service de
+repassage à domicile de prestige (Granby · Montérégie · Rive-Sud).
 
-First, run the development server:
+L'artisan branche **son propre compte Google** depuis le site. Aucune
+intervention technique n'est requise ensuite : ses disponibilités réelles
+alimentent le calendrier public, chaque réservation s'inscrit dans son agenda,
+et les confirmations partent de sa propre adresse Gmail.
+
+---
+
+## Ce que ça fait
+
+**Pour les clients**
+- Page d'accueil bilingue (FR / EN) avec l'histoire de la maison
+- Tunnel de réservation en quatre étapes : prestations → adresse → créneau → confirmation
+- Créneaux réels, calculés à partir de l'agenda Google de l'artisan
+- Estimation de durée et de prix mise à jour en direct ; première heure offerte au premier rendez-vous
+- Courriel de confirmation + invitation d'agenda, envoyés depuis l'adresse de l'artisan
+- Lien personnel pour consulter ou annuler son rendez-vous, sans appeler
+
+**Pour l'artisan** (`/admin`)
+- Connexion en un clic avec Google — c'est la seule installation
+- Liste des rendez-vous à venir et passés, avec téléphone, adresse cliquable et détail des pièces
+- Réglages sans code : horaires, taux horaire, durées par prestation, tampon de déplacement,
+  délai de prévenance, zone desservie, pause pendant les vacances
+- Choix de l'agenda de travail parmi ses agendas Google
+- Révocation de l'accès en un clic
+
+---
+
+## Architecture
+
+| Élément | Choix | Pourquoi |
+|---|---|---|
+| Cadre | Next.js 16 (App Router) | rendu serveur, routes API, déploiement Vercel natif |
+| Style | Tailwind CSS v4 | jetons de design en CSS pur, aucune configuration JS |
+| Base | Postgres (Neon, via Vercel) | réservations + réglages + jeton chiffré |
+| Google | OAuth 2.0, Calendar v3, Gmail v1 | appels `fetch` directs, sans SDK lourd |
+| Session | JWT signé (`jose`), cookie HttpOnly | pas de session serveur à gérer |
+
+### Sécurité
+
+- Le jeton de rafraîchissement Google est chiffré **AES-256-GCM** avant d'entrer en base.
+- Le premier compte Google qui se connecte devient le propriétaire ; un
+  `ADMIN_SETUP_CODE` peut être exigé pour cette toute première fois.
+- Toute durée et tout prix sont **recalculés côté serveur** : le navigateur ne
+  fait que proposer.
+- Un index unique sur `starts_at` rend la double réservation impossible, même
+  en cas de clics simultanés.
+- Pot de miel + limite de trois réservations par courriel et par heure.
+- Les fuseaux horaires sont calculés via `Intl`, bascules d'heure comprises.
+
+---
+
+## Variables d'environnement
+
+Voir [`.env.example`](.env.example).
+
+| Variable | Rôle |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | origine publique — doit correspondre à l'URI de redirection Google |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | identifiants OAuth |
+| `DATABASE_URL` | Postgres (injecté par l'intégration Neon de Vercel) |
+| `ENCRYPTION_KEY` | 32 octets — chiffre le jeton Google (`openssl rand -hex 32`) |
+| `SESSION_SECRET` | signe les cookies d'administration (`openssl rand -base64 48`) |
+| `ADMIN_SETUP_CODE` | optionnel — exigé à la première connexion |
+
+## Développement
 
 ```bash
+npm install
+cp .env.example .env.local   # puis remplir
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Diagnostic d'installation : `GET /api/health` (aucun secret n'y est exposé).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Console Google Cloud
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Créer un projet, puis activer **Google Calendar API** et **Gmail API**.
+2. Écran de consentement OAuth : type externe, ajouter l'artisan en utilisateur
+   de test tant que l'application n'est pas vérifiée.
+3. Identifiants → ID client OAuth → application Web.
+4. URI de redirection autorisée :
+   `https://VOTRE-DOMAINE/api/auth/google/callback`
+   (et `http://localhost:3000/api/auth/google/callback` pour le développement).
+5. Portées demandées : `openid`, `email`, `profile`,
+   `.../auth/calendar`, `.../auth/gmail.send`.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+├── app/
+│   ├── [locale]/          pages publiques (fr | en)
+│   ├── admin/             espace artisan
+│   └── api/               OAuth, disponibilités, réservations, réglages
+├── components/
+│   ├── home/              sections de la page d'accueil
+│   ├── booking/           tunnel de réservation
+│   └── admin/             tableau de bord
+└── lib/
+    ├── availability.ts    moteur de créneaux
+    ├── bookings.ts        création, annulation, statistiques
+    ├── google.ts          OAuth + Calendar + Gmail
+    ├── time.ts            fuseaux horaires (Intl, sans dépendance)
+    ├── email.ts           gabarits de courriel
+    └── i18n/              dictionnaires FR / EN
+```

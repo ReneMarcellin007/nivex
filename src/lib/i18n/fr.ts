@@ -1,0 +1,323 @@
+export const fr = {
+  code: "fr",
+  htmlLang: "fr-CA",
+  meta: {
+    title: "NIVEX — Repassage à domicile de prestige | Granby & Montérégie",
+    description:
+      "Un artisan du repassage se déplace chez vous, avec son matériel professionnel. Chemises, robes délicates, costumes, linge de maison. Première heure offerte.",
+    ogAlt: "NIVEX — Repassage à domicile de prestige",
+  },
+  nav: {
+    home: "Accueil",
+    story: "L'histoire",
+    services: "Prestations",
+    how: "Déroulement",
+    faq: "Questions",
+    book: "Réserver",
+    contact: "Contact",
+  },
+  brand: {
+    name: "NIVEX",
+    tagline: "Repassage à domicile de prestige",
+    values: "Doux, délicat et élégant",
+    phone: "+1 450 943 1217",
+    phoneHref: "tel:+14509431217",
+    email: "styve1885@gmail.com",
+    emailHref: "mailto:styve1885@gmail.com",
+    region: "Granby · Montérégie · Rive-Sud",
+  },
+  hero: {
+    eyebrow: "Service à domicile · Montérégie",
+    titleTop: "Offrez à votre garde-robe",
+    titleBottom: "le soin qu'elle mérite.",
+    lede:
+      "Un artisan se déplace chez vous, avec sa presse et sa vapeur de haute précision. Vous ne déplacez rien, vous ne pliez rien. Vous ouvrez votre penderie, et tout y est droit.",
+    ctaPrimary: "Réserver une séance",
+    ctaSecondary: "Découvrir l'histoire",
+    offer: "Votre première heure de repassage offerte, sur réservation.",
+    scroll: "Faites défiler",
+  },
+  marquee: [
+    "Chemises impeccables",
+    "Robes & vêtements délicats",
+    "Linge de maison haut de gamme",
+    "Costumes & vestes parfaits",
+    "Uniformes scolaires & professionnels",
+    "Collecte & livraison flexibles",
+  ],
+  story: {
+    eyebrow: "L'histoire",
+    title: "Le blanc, comme au premier jour.",
+    chapters: [
+      {
+        num: "I",
+        title: "Un geste qu'on a oublié",
+        body:
+          "Il fut un temps où l'on repassait le dimanche soir. Le fer chuintait, la vapeur montait, et la semaine entière prenait forme sur une planche de bois. Ce geste-là n'a pas disparu parce qu'il était inutile. Il a disparu parce que le temps, lui, s'est effacé.",
+      },
+      {
+        num: "II",
+        title: "Ce que le pli raconte",
+        body:
+          "Un vêtement froissé ne trahit pas votre négligence — il trahit votre agenda. Mais celui qui vous fait face ne le sait pas. Le col qui tombe droit, l'épaule qui tient, le revers qui marque : voilà ce qui parle avant vous, à l'entretien d'embauche comme au premier rendez-vous.",
+      },
+      {
+        num: "III",
+        title: "Le nom",
+        body:
+          "NIVEX vient du latin nix, nivis — la neige. Ce blanc-là ne se négocie pas : il est net, franc, sans mémoire du jour précédent. C'est l'état que nous rendons à vos tissus, l'un après l'autre.",
+      },
+      {
+        num: "IV",
+        title: "Chez vous, pas ailleurs",
+        body:
+          "Nous ne prenons pas vos vêtements en otage dans un camion. L'atelier vient à vous : presse professionnelle, vapeur calibrée, pattemouilles, cintres. Vous restez chez vous. Vos vêtements aussi. Et quand nous repartons, la penderie est en ordre.",
+      },
+    ],
+    signature: "Styve",
+    signatureRole: "Artisan du repassage, fondateur de NIVEX",
+    quote:
+      "Le luxe, ce n'est pas d'avoir beaucoup de vêtements. C'est que chacun soit prêt à être porté.",
+  },
+  services: {
+    eyebrow: "Les prestations",
+    title: "Chaque tissu a sa température.",
+    lede:
+      "Nous ne repassons pas une soie comme un coton d'uniforme. Chaque pièce reçoit le réglage, la pression et la vapeur qui lui conviennent.",
+    items: [
+      {
+        icon: "shirt",
+        name: "Chemises impeccables",
+        body: "Col, empiècement, poignets, corps, manches. Dans cet ordre, toujours. Repassées sur cintre de bois, prêtes à porter.",
+        detail: "≈ 8 à 12 chemises par heure",
+      },
+      {
+        icon: "dress",
+        name: "Robes & vêtements délicats",
+        body: "Soie, viscose, dentelle, plissés. Vapeur sans contact quand la fibre l'exige, pattemouille quand elle le mérite.",
+        detail: "Test de fibre systématique",
+      },
+      {
+        icon: "linen",
+        name: "Linge de maison",
+        body: "Draps, nappes, serviettes, housses. Pliage hôtelier, arêtes vives, empilage prêt pour l'armoire.",
+        detail: "Pliage hôtelier inclus",
+      },
+      {
+        icon: "suit",
+        name: "Costumes & vestes",
+        body: "Défroissage vapeur, remise en forme des épaules, marquage du pli de pantalon. Sans lustrage, jamais.",
+        detail: "Remise en forme structurelle",
+      },
+      {
+        icon: "badge",
+        name: "Uniformes",
+        body: "Scolaires et professionnels. Le lot complet de la semaine, traité d'un coup, rendu sur cintres numérotés.",
+        detail: "Forfait hebdomadaire possible",
+      },
+      {
+        icon: "clock",
+        name: "Collecte & livraison",
+        body: "Vous n'êtes pas là ? Nous récupérons et rapportons selon l'horaire qui vous arrange, dans la zone desservie.",
+        detail: "Sur la Rive-Sud & Granby",
+      },
+    ],
+  },
+  how: {
+    eyebrow: "Le déroulement",
+    title: "Trois étapes, rien de plus.",
+    steps: [
+      {
+        n: "1",
+        title: "Planifiez",
+        body: "Choisissez votre créneau en ligne. Les disponibilités affichées sont réelles — elles sortent directement de l'agenda de votre artisan.",
+      },
+      {
+        n: "2",
+        title: "Préparez",
+        body: "Avant l'arrivée, rassemblez les pièces à traiter. Un panier, un lit, un dossier de chaise : tout convient. Nous nous occupons du reste.",
+      },
+      {
+        n: "3",
+        title: "Rencontrez",
+        body: "Votre spécialiste arrive avec l'équipement complet au moment convenu. Vous récupérez une garde-robe prête à porter, sur cintres.",
+      },
+    ],
+  },
+  pricing: {
+    eyebrow: "Tarification",
+    title: "Au temps passé. Rien de caché.",
+    lede: "Pas de barème à la pièce, pas de suppléments surprises. Vous réservez des heures, nous les remplissons.",
+    firstFree: "Première heure offerte",
+    firstFreeBody:
+      "Pour toute première réservation, la première heure de repassage vous est offerte. Elle est déduite automatiquement de votre estimation.",
+    perHour: "/ heure",
+    minimum: "Durée minimale",
+    note: "L'estimation affichée est indicative. Le montant final est confirmé sur place, avant de commencer.",
+  },
+  testimonials: {
+    eyebrow: "Ce qu'on en dit",
+    title: "Des penderies transformées.",
+  },
+  faq: {
+    eyebrow: "Questions",
+    title: "Ce qu'on nous demande.",
+    items: [
+      {
+        q: "Faut-il fournir la planche et le fer ?",
+        a: "Non. Votre artisan arrive avec l'ensemble du matériel professionnel : table active, générateur de vapeur, pattemouilles, cintres. Nous avons seulement besoin d'une prise électrique et d'environ deux mètres carrés.",
+      },
+      {
+        q: "Combien de temps prévoir ?",
+        a: "Comptez environ 8 à 12 chemises par heure, ou 6 à 8 pièces mixtes. Lors de la réservation, l'estimateur vous propose une durée selon ce que vous sélectionnez — vous pouvez toujours l'ajuster.",
+      },
+      {
+        q: "Dois-je être présent pendant la séance ?",
+        a: "Idéalement pour l'accueil et le départ. Entre les deux, vous vaquez à vos occupations. Certains clients partent travailler après nous avoir ouvert : cela se convient d'avance.",
+      },
+      {
+        q: "Et les pièces fragiles ?",
+        a: "Chaque fibre est identifiée avant traitement. Soie, dentelle, cachemire et plissés sont travaillés à la vapeur sans contact ou sous pattemouille. En cas de doute sur une pièce, nous vous consultons avant d'y toucher.",
+      },
+      {
+        q: "Quelles zones desservez-vous ?",
+        a: "Granby et les environs, ainsi qu'une bonne partie de la Montérégie et de la Rive-Sud. Indiquez votre code postal lors de la réservation : si vous êtes hors zone, nous vous le disons immédiatement.",
+      },
+      {
+        q: "Comment se fait le paiement ?",
+        a: "Sur place, à la fin de la séance : comptant, virement Interac ou carte. Aucun prépaiement n'est demandé lors de la réservation en ligne.",
+      },
+      {
+        q: "Puis-je annuler ou déplacer mon rendez-vous ?",
+        a: "Oui, librement jusqu'à 24 heures avant. Le courriel de confirmation contient un lien personnel qui vous permet de tout gérer sans nous appeler.",
+      },
+    ],
+  },
+  cta: {
+    title: "Votre première heure est offerte.",
+    body: "Choisissez un créneau. Vous recevez la confirmation dans la minute, et l'invitation atterrit directement dans votre agenda.",
+    button: "Réserver maintenant",
+    or: "ou appelez le",
+  },
+  booking: {
+    title: "Réserver une séance",
+    lede: "Quatre étapes, deux minutes. Les créneaux affichés sont ceux réellement libres dans l'agenda de votre artisan.",
+    steps: ["Prestations", "Adresse", "Créneau", "Confirmation"],
+    step1: {
+      title: "Que devons-nous traiter ?",
+      hint: "Sélectionnez ce qui vous concerne, ajustez les quantités. L'estimation se met à jour toute seule.",
+      qty: "Quantité",
+      estimate: "Estimation",
+      duration: "Durée estimée",
+      price: "Montant estimé",
+      hours: "h",
+      minutes: "min",
+      empty: "Sélectionnez au moins une prestation pour continuer.",
+      firstFreeApplied: "Première heure offerte appliquée",
+      notes: "Précisions (optionnel)",
+      notesPlaceholder: "Pièces fragiles, accès à l'immeuble, animal à la maison, stationnement…",
+    },
+    step2: {
+      title: "Où vous rejoignons-nous ?",
+      name: "Nom complet",
+      email: "Courriel",
+      phone: "Téléphone",
+      address: "Adresse",
+      addressPlaceholder: "123 rue Principale, app. 4",
+      city: "Ville",
+      postal: "Code postal",
+      postalPlaceholder: "J2G 1A1",
+      outOfZone: "Cette adresse semble hors de notre zone. Réservez tout de même — nous vous confirmerons par téléphone.",
+      inZone: "Parfait, vous êtes dans la zone desservie.",
+    },
+    step3: {
+      title: "Quand vous convient-il ?",
+      hint: "Les heures grisées sont déjà prises. Fuseau : heure de l'Est (Montréal).",
+      loading: "Lecture de l'agenda…",
+      noSlots: "Aucune disponibilité ce jour-là. Essayez une autre date.",
+      morning: "Matin",
+      afternoon: "Après-midi",
+      evening: "Soirée",
+      selected: "Créneau retenu",
+      nextAvailable: "Prochaine disponibilité",
+    },
+    step4: {
+      title: "Tout est exact ?",
+      when: "Rendez-vous",
+      where: "Adresse",
+      what: "Prestations",
+      who: "Coordonnées",
+      total: "Estimation",
+      consent:
+        "Je comprends que l'estimation est indicative et que le montant final sera confirmé sur place avant le début de la séance.",
+      submit: "Confirmer la réservation",
+      submitting: "Confirmation en cours…",
+    },
+    back: "Retour",
+    next: "Continuer",
+    success: {
+      title: "C'est confirmé.",
+      body: "Un courriel de confirmation vient de partir, avec l'invitation pour votre agenda. Votre artisan a été prévenu.",
+      ref: "Référence",
+      manage: "Gérer ma réservation",
+      addCalendar: "Ajouter à mon agenda",
+      home: "Retour à l'accueil",
+    },
+    errors: {
+      taken: "Ce créneau vient d'être pris. Choisissez-en un autre.",
+      notConnected:
+        "Les réservations en ligne ne sont pas encore actives. Appelez-nous au +1 450 943 1217, nous vous trouvons une place tout de suite.",
+      generic: "Une erreur est survenue. Réessayez, ou appelez-nous directement.",
+      required: "Ce champ est requis",
+      email: "Courriel invalide",
+      phone: "Numéro invalide",
+      postal: "Code postal invalide (ex. J2G 1A1)",
+    },
+  },
+  manage: {
+    title: "Votre réservation",
+    status: {
+      confirmed: "Confirmée",
+      cancelled: "Annulée",
+      completed: "Terminée",
+      pending: "En attente",
+    },
+    cancel: "Annuler la réservation",
+    cancelConfirm: "Annuler définitivement ce rendez-vous ?",
+    cancelled: "Votre réservation a été annulée. Votre artisan en a été informé.",
+    tooLate: "Ce rendez-vous a lieu dans moins de 24 h. Appelez-nous au +1 450 943 1217.",
+    notFound: "Réservation introuvable. Vérifiez le lien reçu par courriel.",
+    rebook: "Prendre un nouveau rendez-vous",
+  },
+  footer: {
+    tagline: "Repassage à domicile de prestige",
+    rights: "Tous droits réservés",
+    zone: "Zone desservie",
+    hours: "Horaire",
+    legal: "Confidentialité",
+    admin: "Espace artisan",
+    craft: "Fait avec soin en Montérégie",
+  },
+  protocol: {
+    eyebrow: "Le protocole",
+    title: "L'ordre ne s'improvise pas.",
+    lede:
+      "Une chemise mal repassée n'est pas une chemise mal chauffée : c'est une chemise repassée dans le désordre. Chaque pièce déjà finie serait refroissée par la suivante. Voici la marche à suivre, celle qu'on ne change jamais.",
+    steps: [
+      { n: "01", title: "Le col",        body: "À l'envers d'abord, de la pointe vers le centre. Jamais l'inverse : c'est ainsi qu'on évite le faux pli qui ne part plus." },
+      { n: "02", title: "L'empiècement", body: "Le haut du dos, posé sur la pointe de la planche. Une épaule, puis l'autre, sans jamais écraser la couture." },
+      { n: "03", title: "Les poignets",  body: "Ouverts à plat, envers puis endroit. Le fer contourne les boutons — il ne passe jamais dessus." },
+      { n: "04", title: "Les manches",   body: "On suit l'arête existante, on n'en crée pas une nouvelle. Une manche a une seule mémoire ; on la respecte." },
+      { n: "05", title: "Le corps",      body: "Devant boutonné, puis le dos, en faisant tourner la pièce autour de la planche plutôt qu'en la retournant." },
+      { n: "06", title: "La vapeur",     body: "Passage final sans contact. La fibre se détend, la tenue se fixe, le lustre ne vient jamais." },
+      { n: "07", title: "Le cintre",     body: "Bois, immédiatement. Le tissu refroidit en forme — c'est là que le travail tient, ou qu'il se perd." },
+    ],
+  },
+  days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+  daysShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+  months: ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
+  closed: "Fermé",
+};
+
+/** Le dictionnaire français fait foi : la version anglaise doit en épouser la forme. */
+export type Dict = typeof fr;
