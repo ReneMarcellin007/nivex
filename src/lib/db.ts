@@ -103,11 +103,30 @@ async function bootstrap() {
   await q`CREATE INDEX IF NOT EXISTS nivex_bookings_starts_idx ON nivex_bookings (starts_at DESC)`;
   await q`CREATE INDEX IF NOT EXISTS nivex_bookings_email_idx  ON nivex_bookings (lower(client_email))`;
 
-  /* Garde-fou anti double-réservation : un seul rendez-vous actif par créneau. */
+  /*
+   * Garde-fou anti double-réservation.
+   *
+   * L'index unique empêche deux rendez-vous à la même heure pile. Il ne
+   * suffit pas : 10 h–13 h et 11 h–12 h ont des heures de début
+   * différentes mais se chevauchent. La contrainte d'exclusion ci-dessous
+   * ferme la course pour de bon — deux requêtes concurrentes ne peuvent
+   * plus insérer des plages qui se recoupent.
+   */
   await q`
     CREATE UNIQUE INDEX IF NOT EXISTS nivex_bookings_active_slot_idx
     ON nivex_bookings (starts_at)
     WHERE status IN ('confirmed', 'pending')`;
+
+  await q`
+    DO $$ BEGIN
+      ALTER TABLE nivex_bookings
+        ADD CONSTRAINT nivex_bookings_no_overlap
+        EXCLUDE USING gist (tstzrange(starts_at, ends_at) WITH &&)
+        WHERE (status IN ('confirmed', 'pending'));
+    EXCEPTION
+      WHEN duplicate_object THEN NULL;
+      WHEN duplicate_table  THEN NULL;
+    END $$`;
 
   /* Journal d'audit léger — utile pour comprendre après coup. */
   await q`

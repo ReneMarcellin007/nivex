@@ -120,6 +120,11 @@ export function BookingWizard({ t, config }: { t: Dict; config: WizardConfig }) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step]);
 
+  /* Changer le panier change la durée : le créneau déjà retenu ne tient plus. */
+  useEffect(() => {
+    setSelectedSlot(null);
+  }, [duration]);
+
   useEffect(() => {
     topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [step, done]);

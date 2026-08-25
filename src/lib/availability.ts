@@ -170,7 +170,7 @@ export function estimateMinutes(
   s: Settings,
 ): number {
   const raw = items.reduce((sum, it) => {
-    const svc = s.services.find((x) => x.key === it.key);
+    const svc = s.services.find((x) => x.key === it.key && x.enabled);
     return sum + (svc ? svc.minutesPerUnit * Math.max(0, it.qty) : 0);
   }, 0);
   if (raw <= 0) return 0;

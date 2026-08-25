@@ -118,7 +118,10 @@ export async function createBooking(input: BookingInputType, host?: string | nul
       ) RETURNING *`) as Row[];
   } catch (e) {
     const msg = String((e as Error).message ?? e);
-    if (/duplicate key|unique/i.test(msg)) throw new BookingError("slot_taken");
+    // 23505 : index unique · 23P01 : contrainte d'exclusion (chevauchement)
+    if (/duplicate key|unique|conflicting key value|exclusion constraint|23P01/i.test(msg)) {
+      throw new BookingError("slot_taken");
+    }
     throw e;
   }
 
@@ -130,7 +133,7 @@ export async function createBooking(input: BookingInputType, host?: string | nul
     const ev = await createEvent(accessToken, {
       calendarId: settings.calendarId,
       summary: `NIVEX — ${booking.clientName}`,
-      description: eventDescription(booking, settings, origin),
+      description: eventDescription(booking, origin),
       location: `${booking.address}, ${booking.city}, QC ${booking.postalCode}`,
       start: booking.startsAt.toISOString(),
       end: booking.endsAt.toISOString(),
@@ -152,7 +155,7 @@ export async function createBooking(input: BookingInputType, host?: string | nul
   return booking;
 }
 
-function eventDescription(b: Booking, s: Settings, origin: string): string {
+function eventDescription(b: Booking, origin: string): string {
   const lines = [
     `Client : ${b.clientName}`,
     `Téléphone : ${b.clientPhone}`,
@@ -166,7 +169,6 @@ function eventDescription(b: Booking, s: Settings, origin: string): string {
   ];
   if (b.notes) lines.push("", `Précisions du client : ${b.notes}`);
   lines.push("", `Référence : ${b.ref}`, `Tableau de bord : ${origin}/admin`);
-  void s;
   return lines.join("\n");
 }
 
@@ -211,6 +213,12 @@ async function isFirstBooking(email: string): Promise<boolean> {
 }
 
 /* ============================ Lecture ============================ */
+
+export async function findById(id: string): Promise<Booking | null> {
+  await ensureSchema();
+  const rows = (await sql()`SELECT * FROM nivex_bookings WHERE id = ${id} LIMIT 1`) as Row[];
+  return rows[0] ? hydrate(rows[0]) : null;
+}
 
 export async function findByManageToken(t: string): Promise<Booking | null> {
   await ensureSchema();
@@ -277,9 +285,12 @@ export async function cancelBooking(b: Booking, by: "client" | "owner"): Promise
     const cc = clientCancellation(d);
     const on = ownerNotification(d, true);
     await Promise.allSettled([
-      by === "owner"
-        ? sendGmail(at, { to: b.clientEmail, toName: b.clientName, subject: cc.subject, html: cc.html, text: cc.text, fromName, replyTo: settings.ownerEmail ?? undefined })
-        : sendGmail(at, { to: b.clientEmail, toName: b.clientName, subject: cc.subject, html: cc.html, text: cc.text, fromName, replyTo: settings.ownerEmail ?? undefined }),
+      // Le client est prévenu dans tous les cas.
+      sendGmail(at, {
+        to: b.clientEmail, toName: b.clientName, subject: cc.subject,
+        html: cc.html, text: cc.text, fromName, replyTo: settings.ownerEmail ?? undefined,
+      }),
+      // L'artisan, seulement quand l'annulation ne vient pas de lui.
       settings.ownerEmail && by === "client"
         ? sendGmail(at, { to: settings.ownerEmail, subject: on.subject, html: on.html, text: on.text, fromName })
         : Promise.resolve(null),
