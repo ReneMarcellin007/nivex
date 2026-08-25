@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDict, isLocale } from "@/lib/i18n";
 import { getSettings, isBookable } from "@/lib/settings";
+import { isDemo } from "@/lib/demo";
 import { BookingWizard, type WizardConfig } from "@/components/booking/BookingWizard";
 
 export const dynamic = "force-dynamic";
@@ -22,6 +23,7 @@ export default async function BookPage({ params }: { params: Promise<{ locale: s
 
   const t = getDict(locale);
   const s = await getSettings();
+  const bookable = isBookable(s) || isDemo();
 
   const config: WizardConfig = {
     locale,
@@ -38,8 +40,8 @@ export default async function BookPage({ params }: { params: Promise<{ locale: s
     firstHourFree: s.firstHourFree,
     timezone: s.timezone,
     areaPrefixes: s.serviceArea.prefixes.map((p) => p.toUpperCase()),
-    bookable: isBookable(s),
-    notConnectedReason: isBookable(s) ? null : s.paused ? "paused" : "not_connected",
+    bookable,
+    notConnectedReason: bookable ? null : s.paused ? "paused" : "not_connected",
   };
 
   return (

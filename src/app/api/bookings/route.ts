@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { BookingInput, BookingError, createBooking } from "@/lib/bookings";
 import { ensureSchema, sql } from "@/lib/db";
+import { demoSettings, isDemo } from "@/lib/demo";
+import { estimateCents, estimateMinutes } from "@/lib/availability";
+import { bookingRef, token } from "@/lib/crypto";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -18,6 +21,23 @@ export async function POST(req: NextRequest) {
 
   // Pot de miel : un robot remplit tous les champs, y compris celui qui est caché.
   if (parsed.data.hp) return NextResponse.json({ ok: true, ref: "NVX-000000" }, { status: 200 });
+
+  // Démonstration locale : on renvoie une confirmation sans rien écrire,
+  // mais avec les vrais chiffres, sinon l'aperçu ment.
+  if (isDemo()) {
+    const settings = demoSettings();
+    const start = new Date(parsed.data.startsAt);
+    const durationMinutes = estimateMinutes(parsed.data.items, settings);
+    return NextResponse.json({
+      ok: true, demo: true, ref: bookingRef(), manageToken: token(24),
+      startsAt: start.toISOString(),
+      endsAt: new Date(start.getTime() + durationMinutes * 60_000).toISOString(),
+      durationMinutes,
+      estimateCents: estimateCents(durationMinutes, settings, settings.firstHourFree),
+      currency: settings.currency,
+      firstHourFree: settings.firstHourFree,
+    }, { status: 201 });
+  }
 
   // Garde-fou : pas plus de 3 réservations par courriel et par heure.
   try {

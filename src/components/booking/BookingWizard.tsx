@@ -187,7 +187,7 @@ export function BookingWizard({ t, config }: { t: Dict; config: WizardConfig }) 
 
   if (done) {
     const when = new Intl.DateTimeFormat(config.locale === "en" ? "en-CA" : "fr-CA", {
-      timeZone: config.timezone, weekday: "long", day: "numeric", month: "long",
+      timeZone: config.timezone, weekday: "long", day: "numeric", month: "long", year: "numeric",
       hour: "2-digit", minute: "2-digit", hour12: config.locale === "en",
     }).format(new Date(done.startsAt));
 
@@ -469,7 +469,7 @@ export function BookingWizard({ t, config }: { t: Dict; config: WizardConfig }) 
               <Row label={t.booking.step4.when} value={
                 selectedSlot
                   ? new Intl.DateTimeFormat(config.locale === "en" ? "en-CA" : "fr-CA", {
-                      timeZone: config.timezone, weekday: "long", day: "numeric", month: "long",
+                      timeZone: config.timezone, weekday: "long", day: "numeric", month: "long", year: "numeric",
                       hour: "2-digit", minute: "2-digit", hour12: config.locale === "en",
                     }).format(new Date(selectedSlot))
                   : "—"

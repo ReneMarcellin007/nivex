@@ -14,9 +14,10 @@ export function ShirtIcon({ className = "h-7 w-7" }: P) {
 export function DressIcon({ className = "h-7 w-7" }: P) {
   return (
     <svg viewBox="0 0 32 32" className={`${base} ${className}`} strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M12.5 4h7l-1.2 5.5L26 27a2 2 0 0 1-1.9 1.4H7.9A2 2 0 0 1 6 27l7.7-17.5L12.5 4Z" />
-      <path d="M13.7 9.5h4.6" />
-      <path d="M10 20h12" opacity=".5" />
+      {/* bretelles, décolleté en V, taille marquée, jupe évasée */}
+      <path d="M12.2 4h7.6l-1.1 5.4a3 3 0 0 0 .2 2l4.7 15.1a1.5 1.5 0 0 1-1.4 1.9H9.8a1.5 1.5 0 0 1-1.4-1.9l4.7-15.1a3 3 0 0 0 .2-2L12.2 4Z" />
+      <path d="M12.2 4 16 7.8 19.8 4" />
+      <path d="M13.1 14.2h5.8" opacity=".55" />
     </svg>
   );
 }

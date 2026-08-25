@@ -3,6 +3,7 @@ import { getSettings, isBookable } from "@/lib/settings";
 import { ownerAccessToken } from "@/lib/google";
 import { computeSlots, estimateCents, estimateMinutes, loadBusy } from "@/lib/availability";
 import { addDaysToKey, dateKey, fromWall, parseDateKey } from "@/lib/time";
+import { demoAvailability, isDemo } from "@/lib/demo";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -14,6 +15,8 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const settings = await getSettings();
+
+  if (isDemo() && !isBookable(settings)) return demoResponse(url, settings.timezone);
 
   if (!isBookable(settings)) {
     return NextResponse.json(
@@ -70,4 +73,28 @@ export async function GET(req: NextRequest) {
   } catch {
     return NextResponse.json({ available: false, reason: "calendar_error", timezone: settings.timezone }, { status: 200 });
   }
+}
+
+/** Grille fictive — uniquement en développement, jamais en production. */
+function demoResponse(url: URL, tz: string) {
+  const raw = url.searchParams.get("items") ?? "";
+  const items = raw.split(",").map((p) => {
+    const [key, qty] = p.split(":");
+    return { key: key?.trim() ?? "", qty: Math.max(0, Math.min(200, Number(qty) || 0)) };
+  }).filter((i) => i.key && i.qty > 0);
+
+  const today = new URL(url).searchParams.get("from");
+  const d = demoAvailability({
+    fromKey: today && /^\d{4}-\d{2}-\d{2}$/.test(today) ? today : "",
+    days: Math.min(Math.max(Number(url.searchParams.get("days") ?? 14), 1), 31),
+    items,
+  });
+
+  return NextResponse.json({
+    available: true, demo: true, timezone: tz, duration: d.duration,
+    hourlyRate: d.settings.hourlyRate, currency: d.settings.currency,
+    firstHourFree: d.settings.firstHourFree,
+    estimateCents: 0, horizonDays: d.settings.horizonDays, leadHours: d.settings.leadHours,
+    today: d.today, days: d.days,
+  }, { headers: { "cache-control": "no-store" } });
 }
