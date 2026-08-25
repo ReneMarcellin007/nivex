@@ -17,8 +17,8 @@
   --color-gold-200: #E8D9B5;
   --color-gold-300: #D6C08C;
   --color-gold-400: #C4A76A;
-  --color-gold-500: #B08D4F;
-  --color-gold-600: #97753E;
+  --color-gold-500: #A7864B;   /* graphiques : ≥ 3:1 sur le lin */
+  --color-gold-600: #866836;   /* texte : ≥ 4,5:1 sur tous les fonds de lin */
   --color-gold-700: #7A5E31;
 
   /* — Encre — */
@@ -44,6 +44,9 @@
   --text: var(--color-ink-800);
   --text-muted: var(--color-ink-500);
   --rule: color-mix(in oklab, var(--color-gold-400) 34%, transparent);
+  /* Bordure des contrôles : WCAG 1.4.11 exige 3:1 pour les composants d'interface.
+     Le filet décoratif, lui, peut rester discret. */
+  --control-border: #9E7F47;
 }
 
 * { border-color: var(--rule); }
@@ -138,8 +141,9 @@ body {
   .btn:disabled { opacity: 0.4; cursor: not-allowed; }
   .btn:disabled::after { display: none; }
 
-  .btn-gold { --btn-bg: var(--color-gold-500); --btn-fg: #fff; }
-  .btn-gold:hover { --btn-bg: var(--color-gold-600); }
+  /* Le texte blanc impose un or foncé : 3,1:1 sur gold-500, 5,2:1 sur gold-600. */
+  .btn-gold { --btn-bg: var(--color-gold-600); --btn-fg: #fff; }
+  .btn-gold:hover { --btn-bg: var(--color-gold-700); }
 
   .btn-ghost {
     --btn-bg: transparent;
@@ -159,7 +163,7 @@ body {
   .field {
     width: 100%;
     background: var(--color-linen-50);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--control-border);
     padding: 0.85rem 1rem;
     font-size: 0.95rem;
     color: var(--color-ink-800);
