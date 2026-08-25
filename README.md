@@ -1,7 +1,7 @@
 # NIVEX — site & moteur de réservation
 
 Site vitrine bilingue et système de rendez-vous pour **NIVEX**, service de
-repassage à domicile de prestige (Granby · Montérégie · Rive-Sud).
+repassage à domicile de prestige (Longueuil · Rive-Sud · Montérégie).
 
 L'artisan branche **son propre compte Google** depuis le site. Aucune
 intervention technique n'est requise ensuite : ses disponibilités réelles

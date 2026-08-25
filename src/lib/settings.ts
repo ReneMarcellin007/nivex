@@ -57,9 +57,19 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
 ];
 
 export const DEFAULT_AREA: ServiceArea = {
-  prefixes: ["J2G","J2H","J2J","J2K","J2L","J0E","J0L","J2N","J2R","J2S","J2T","J3G","J3H","J3L","J3M","J3V","J3X","J3Y","J4B","J4G","J4H","J4K"],
-  labelFr: "Granby, Bromont, Waterloo, Saint-Hyacinthe, Beloeil, Chambly et environs",
-  labelEn: "Granby, Bromont, Waterloo, Saint-Hyacinthe, Beloeil, Chambly and surrounding towns",
+  // Longueuil et ses arrondissements, puis la Rive-Sud immédiate.
+  prefixes: [
+    "J4G","J4H","J4J","J4K","J4L","J4M","J4N",   // Vieux-Longueuil
+    "J3Y","J4T",                                  // Saint-Hubert
+    "J4V",                                        // Greenfield Park
+    "J4P","J4R","J4S",                            // Saint-Lambert
+    "J4W","J4X","J4Y","J4Z",                      // Brossard
+    "J4B",                                        // Boucherville
+    "J3V",                                        // Saint-Bruno-de-Montarville
+    "J3E","J3L","J3X","J5R",                      // Sainte-Julie, Chambly, Varennes, La Prairie
+  ],
+  labelFr: "Longueuil (Vieux-Longueuil, Saint-Hubert, Greenfield Park), Brossard, Saint-Lambert, Boucherville, Saint-Bruno et la Rive-Sud environnante",
+  labelEn: "Longueuil (Vieux-Longueuil, Saint-Hubert, Greenfield Park), Brossard, Saint-Lambert, Boucherville, Saint-Bruno and the surrounding South Shore",
 };
 
 export const FALLBACK_SETTINGS: Settings = {

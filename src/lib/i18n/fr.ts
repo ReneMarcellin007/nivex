@@ -2,9 +2,9 @@ export const fr = {
   code: "fr",
   htmlLang: "fr-CA",
   meta: {
-    title: "NIVEX — Repassage à domicile de prestige | Granby & Montérégie",
+    title: "NIVEX — Repassage à domicile de prestige | Longueuil & Rive-Sud",
     description:
-      "Un artisan du repassage se déplace chez vous, avec son matériel professionnel. Chemises, robes délicates, costumes, linge de maison. Première heure offerte.",
+      "Un artisan du repassage se déplace chez vous, avec son matériel professionnel. Chemises, robes délicates, costumes, linge de maison. Longueuil et la Rive-Sud. Première heure offerte.",
     ogAlt: "NIVEX — Repassage à domicile de prestige",
   },
   nav: {
@@ -24,10 +24,10 @@ export const fr = {
     phoneHref: "tel:+14509431217",
     email: "styve1885@gmail.com",
     emailHref: "mailto:styve1885@gmail.com",
-    region: "Granby · Montérégie · Rive-Sud",
+    region: "Longueuil · Rive-Sud · Montérégie",
   },
   hero: {
-    eyebrow: "Service à domicile · Montérégie",
+    eyebrow: "Service à domicile · Longueuil",
     titleTop: "Offrez à votre garde-robe",
     titleBottom: "le soin qu'elle mérite.",
     lede:
@@ -119,7 +119,7 @@ export const fr = {
         icon: "clock",
         name: "Collecte & livraison",
         body: "Vous n'êtes pas là ? Nous récupérons et rapportons selon l'horaire qui vous arrange, dans la zone desservie.",
-        detail: "Sur la Rive-Sud & Granby",
+        detail: "Longueuil & la Rive-Sud",
       },
     ],
   },
@@ -181,7 +181,7 @@ export const fr = {
       },
       {
         q: "Quelles zones desservez-vous ?",
-        a: "Granby et les environs, ainsi qu'une bonne partie de la Montérégie et de la Rive-Sud. Indiquez votre code postal lors de la réservation : si vous êtes hors zone, nous vous le disons immédiatement.",
+        a: "Longueuil et ses arrondissements — Vieux-Longueuil, Saint-Hubert, Greenfield Park — ainsi que la Rive-Sud environnante : Brossard, Saint-Lambert, Boucherville, Saint-Bruno. Indiquez votre code postal lors de la réservation : si vous êtes hors zone, nous vous le disons immédiatement.",
       },
       {
         q: "Comment se fait le paiement ?",
@@ -226,7 +226,7 @@ export const fr = {
       addressPlaceholder: "123 rue Principale, app. 4",
       city: "Ville",
       postal: "Code postal",
-      postalPlaceholder: "J2G 1A1",
+      postalPlaceholder: "J4K 1A1",
       outOfZone: "Cette adresse semble hors de notre zone. Réservez tout de même — nous vous confirmerons par téléphone.",
       inZone: "Parfait, vous êtes dans la zone desservie.",
     },
@@ -271,7 +271,7 @@ export const fr = {
       required: "Ce champ est requis",
       email: "Courriel invalide",
       phone: "Numéro invalide",
-      postal: "Code postal invalide (ex. J2G 1A1)",
+      postal: "Code postal invalide (ex. J4K 1A1)",
     },
   },
   manage: {
@@ -296,7 +296,7 @@ export const fr = {
     hours: "Horaire",
     legal: "Confidentialité",
     admin: "Espace artisan",
-    craft: "Fait avec soin en Montérégie",
+    craft: "Fait avec soin sur la Rive-Sud",
   },
   protocol: {
     eyebrow: "Le protocole",

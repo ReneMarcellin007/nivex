@@ -53,7 +53,7 @@ function shell(inner: string, preheader: string): string {
   </td></tr>
   ${inner}
   <tr><td style="padding:26px 40px 34px;border-top:1px solid #F0E6D2;text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:${MUTED};line-height:1.8;">
-    NIVEX · Granby &amp; Montérégie<br>
+    NIVEX · Longueuil &amp; Rive-Sud<br>
     <a href="tel:+14509431217" style="color:${GOLD};text-decoration:none;">+1 450 943 1217</a> &nbsp;·&nbsp;
     <a href="mailto:styve1885@gmail.com" style="color:${GOLD};text-decoration:none;">styve1885@gmail.com</a>
   </td></tr>

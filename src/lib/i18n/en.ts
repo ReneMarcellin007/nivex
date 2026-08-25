@@ -4,9 +4,9 @@ export const en: Dict = {
   code: "en",
   htmlLang: "en-CA",
   meta: {
-    title: "NIVEX — Prestige In-Home Ironing | Granby & Montérégie",
+    title: "NIVEX — Prestige In-Home Ironing | Longueuil & the South Shore",
     description:
-      "A master presser comes to your home with professional equipment. Shirts, delicate garments, suits, household linen. First hour on the house.",
+      "A master presser comes to your home with professional equipment. Shirts, delicate garments, suits, household linen. Longueuil and the South Shore. First hour on the house.",
     ogAlt: "NIVEX — Prestige in-home ironing",
   },
   nav: {
@@ -26,10 +26,10 @@ export const en: Dict = {
     phoneHref: "tel:+14509431217",
     email: "styve1885@gmail.com",
     emailHref: "mailto:styve1885@gmail.com",
-    region: "Granby · Montérégie · South Shore",
+    region: "Longueuil · South Shore · Montérégie",
   },
   hero: {
-    eyebrow: "In-home service · Montérégie",
+    eyebrow: "In-home service · Longueuil",
     titleTop: "Give your wardrobe",
     titleBottom: "the care it deserves.",
     lede:
@@ -121,7 +121,7 @@ export const en: Dict = {
         icon: "clock",
         name: "Pickup & delivery",
         body: "Not home? We collect and return on whatever schedule suits you, within the service area.",
-        detail: "South Shore & Granby",
+        detail: "Longueuil & the South Shore",
       },
     ],
   },
@@ -183,7 +183,7 @@ export const en: Dict = {
       },
       {
         q: "Which areas do you serve?",
-        a: "Granby and the surrounding towns, plus much of the Montérégie and the South Shore. Enter your postal code when booking: if you're outside the zone, we'll tell you right away.",
+        a: "Longueuil and its boroughs — Vieux-Longueuil, Saint-Hubert, Greenfield Park — plus the surrounding South Shore: Brossard, Saint-Lambert, Boucherville, Saint-Bruno. Enter your postal code when booking: if you're outside the zone, we'll tell you right away.",
       },
       {
         q: "How does payment work?",
@@ -228,7 +228,7 @@ export const en: Dict = {
       addressPlaceholder: "123 Main Street, apt. 4",
       city: "City",
       postal: "Postal code",
-      postalPlaceholder: "J2G 1A1",
+      postalPlaceholder: "J4K 1A1",
       outOfZone: "This address looks outside our zone. Book anyway — we'll confirm by phone.",
       inZone: "Good news, you're inside the service area.",
     },
@@ -273,7 +273,7 @@ export const en: Dict = {
       required: "This field is required",
       email: "Invalid email",
       phone: "Invalid number",
-      postal: "Invalid postal code (e.g. J2G 1A1)",
+      postal: "Invalid postal code (e.g. J4K 1A1)",
     },
   },
   manage: {
@@ -298,7 +298,7 @@ export const en: Dict = {
     hours: "Hours",
     legal: "Privacy",
     admin: "Craftsman login",
-    craft: "Made with care in Montérégie",
+    craft: "Made with care on the South Shore",
   },
   protocol: {
     eyebrow: "The protocol",

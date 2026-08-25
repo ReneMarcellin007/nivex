@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://nivex.vercel.app"),
   title: "NIVEX — Repassage à domicile de prestige",
   description:
-    "Un artisan du repassage se déplace chez vous, avec son matériel professionnel. Granby, Montérégie et Rive-Sud. Première heure offerte.",
+    "Un artisan du repassage se déplace chez vous, avec son matériel professionnel. Longueuil, Rive-Sud et Montérégie. Première heure offerte.",
   applicationName: "NIVEX",
   authors: [{ name: "NIVEX" }],
   keywords: [
-    "repassage à domicile", "repassage Granby", "service de repassage Montérégie",
+    "repassage à domicile", "repassage Longueuil", "repassage Rive-Sud", "service de repassage Montérégie",
     "pressage chemises", "ironing service Quebec", "linge de maison", "NIVEX",
   ],
   openGraph: {

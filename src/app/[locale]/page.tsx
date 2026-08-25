@@ -31,7 +31,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     email: "styve1885@gmail.com",
     priceRange: "$$",
     areaServed: settings.serviceArea.prefixes.map((p) => ({ "@type": "PostalCodeRangeSpecification", postalCodeBegin: p })),
-    address: { "@type": "PostalAddress", addressRegion: "QC", addressCountry: "CA", addressLocality: "Granby" },
+    address: { "@type": "PostalAddress", addressRegion: "QC", addressCountry: "CA", addressLocality: "Longueuil" },
     openingHoursSpecification: settings.hours.filter((h) => h.enabled).map((h) => ({
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][h.day],
