@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { defaultLocale, locales } from "@/lib/i18n";
 
-const PUBLIC_FILE = /\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt|xml|webmanifest|woff2?)$/;
+const PUBLIC_FILE = /\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|txt|xml|json|html|pdf|webmanifest|woff2?)$/;
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;

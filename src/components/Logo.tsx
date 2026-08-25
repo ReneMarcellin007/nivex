@@ -19,10 +19,10 @@ export function HangerMark({ className = "h-12 w-auto", withSteam = true, title 
       <path d="M47 51V33l26 18V33" stroke="currentColor" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
       {/* vapeur */}
       {withSteam && (
-        <g className="steam" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.75">
-          <path d="M92 30c3-2.6 3-5.6 0-8.2s-3-5.6 0-8.2" />
-          <path d="M100 33c3-2.6 3-5.6 0-8.2s-3-5.6 0-8.2" />
-          <path d="M108 30c2.4-2.1 2.4-4.6 0-6.7" />
+        <g className="steam" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.85">
+          <path d="M87 37c4.2-3.8 4.2-7.6 0-11.4s-4.2-7.6 0-11.4" />
+          <path d="M96.5 40c4.2-3.8 4.2-7.6 0-11.4s-4.2-7.6 0-11.4" />
+          <path d="M106 36c3.4-3.1 3.4-6.2 0-9.3s-3.4-6.2 0-9.3" />
         </g>
       )}
     </svg>

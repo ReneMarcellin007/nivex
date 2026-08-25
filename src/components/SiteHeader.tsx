@@ -98,10 +98,10 @@ export function SiteHeader({ t, locale }: { t: Dict; locale: "fr" | "en" }) {
         }`}
         style={{ transitionTimingFunction: "var(--ease-silk)" }}
       >
-        <nav className="flex h-full flex-col items-center justify-center gap-2 px-8">
+        <nav className="flex h-full flex-col items-center justify-center gap-4 px-8">
           {links.map((l, i) => (
             <Link key={l.href} href={l.href}
-              className="font-display text-4xl text-ink-800 transition-colors hover:text-gold-600"
+              className="font-display text-4xl leading-none text-ink-800 transition-colors hover:text-gold-600"
               style={{ animation: open ? `rise .7s var(--ease-silk) ${i * 70 + 100}ms both` : "none" }}>
               {l.label}
             </Link>

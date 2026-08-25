@@ -102,7 +102,7 @@ const T = {
     ownerIntro: "Une nouvelle séance vient d'être réservée sur le site.",
     ownerCancelSubject: (n: string, ref: string) => `Annulation — ${n} · ${ref}`,
     ownerCancelIntro: "Un client vient d'annuler sa séance. Le créneau est de nouveau libre.",
-    client: "Client", email: "Courriel",
+    client: "Client", email: "Courriel", clientNotes: "Précisions du client",
   },
   en: {
     subject: (ref: string) => `Your NIVEX session is confirmed · ${ref}`,
@@ -128,7 +128,7 @@ const T = {
     ownerIntro: "A new session has just been booked on the website.",
     ownerCancelSubject: (n: string, ref: string) => `Cancellation — ${n} · ${ref}`,
     ownerCancelIntro: "A client just cancelled. The slot is open again.",
-    client: "Client", email: "Email",
+    client: "Client", email: "Email", clientNotes: "Client notes",
   },
 } as const;
 
@@ -227,7 +227,7 @@ export function ownerNotification(d: BookingEmailData, cancelled = false) {
       ${row(t.what, itemsHtml(d.items))}
       ${row(t.duration, esc(dur))}
       ${row(t.estimate, `<strong>${esc(money)}</strong>${d.firstHourFree ? `<br><span style="font-size:12px;color:${GOLD};">${esc(t.free)}</span>` : ""}`)}
-      ${d.notes ? row(t.notes, esc(d.notes)) : ""}
+      ${d.notes ? row(t.clientNotes, esc(d.notes)) : ""}
       ${row(t.ref, `<code style="font-family:monospace;">${esc(d.ref)}</code>`)}
     </table>
   </td></tr>
@@ -239,7 +239,7 @@ export function ownerNotification(d: BookingEmailData, cancelled = false) {
     `${t.phone}: ${d.clientPhone}`, `${t.email}: ${d.clientEmail}`,
     `${t.where}: ${d.address}, ${d.city} ${d.postalCode}`, `${t.what}:`, itemsText(d.items),
     `${t.duration}: ${dur}`, `${t.estimate}: ${money}`,
-    d.notes ? `${t.notes}: ${d.notes}` : "", `${t.ref}: ${d.ref}`, "", `${d.siteUrl}/admin`,
+    d.notes ? `${t.clientNotes}: ${d.notes}` : "", `${t.ref}: ${d.ref}`, "", `${d.siteUrl}/admin`,
   ].filter(Boolean).join("\n");
 
   return {
