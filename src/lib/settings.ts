@@ -38,13 +38,13 @@ export type Settings = {
 };
 
 export const DEFAULT_HOURS: DayHours[] = [
-  { day: 0, enabled: false, open: "10:00", close: "16:00" }, // dimanche
-  { day: 1, enabled: true,  open: "09:00", close: "19:00" },
-  { day: 2, enabled: true,  open: "09:00", close: "19:00" },
-  { day: 3, enabled: true,  open: "09:00", close: "19:00" },
-  { day: 4, enabled: true,  open: "09:00", close: "19:00" },
-  { day: 5, enabled: true,  open: "09:00", close: "19:00" },
-  { day: 6, enabled: true,  open: "09:00", close: "16:00" }, // samedi
+  { day: 0, enabled: false, open: "07:00", close: "22:00" }, // dimanche — fermé par défaut
+  { day: 1, enabled: true,  open: "07:00", close: "22:00" },
+  { day: 2, enabled: true,  open: "07:00", close: "22:00" },
+  { day: 3, enabled: true,  open: "07:00", close: "22:00" },
+  { day: 4, enabled: true,  open: "07:00", close: "22:00" },
+  { day: 5, enabled: true,  open: "07:00", close: "22:00" },
+  { day: 6, enabled: true,  open: "07:00", close: "22:00" }, // samedi
 ];
 
 export const DEFAULT_SERVICES: ServiceItem[] = [

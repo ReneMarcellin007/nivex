@@ -9,6 +9,7 @@ import { Protocol } from "@/components/home/Protocol";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { Pricing } from "@/components/home/Pricing";
 import { Faq } from "@/components/home/Faq";
+import { Contact } from "@/components/home/Contact";
 import { ClosingCta } from "@/components/home/ClosingCta";
 
 export const revalidate = 300;
@@ -64,6 +65,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <HowItWorks t={t} />
       <Pricing t={t} locale={locale} settings={settings} />
       <Faq t={t} />
+      <Contact t={t} locale={locale} />
       <ClosingCta t={t} locale={locale} />
     </>
   );

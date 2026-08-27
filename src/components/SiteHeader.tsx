@@ -31,6 +31,7 @@ export function SiteHeader({ t, locale }: { t: Dict; locale: "fr" | "en" }) {
     { href: `${home}#prestations`, label: t.nav.services },
     { href: `${home}#deroulement`, label: t.nav.how },
     { href: `${home}#questions`, label: t.nav.faq },
+    { href: `${home}#contact`, label: t.nav.contact },
   ];
 
   // Le sélecteur de langue conserve la page courante.

@@ -6,11 +6,13 @@ import { Crest, Wordmark } from "../Logo";
 import { BookingsPanel } from "./BookingsPanel";
 import { SettingsPanel } from "./SettingsPanel";
 import { ConnectionPanel } from "./ConnectionPanel";
+import { MessagesPanel } from "./MessagesPanel";
 import type { AdminBooking, AdminStats } from "./types";
 import type { Settings } from "@/lib/settings";
 
 const TABS = [
   { key: "bookings", label: "Rendez-vous" },
+  { key: "messages", label: "Messages" },
   { key: "settings", label: "Réglages" },
   { key: "connection", label: "Connexion" },
 ] as const;
@@ -108,6 +110,7 @@ export function Dashboard({
         {tab === "bookings" && (
           <BookingsPanel upcoming={upcoming} past={past} stats={stats} timezone={settings.timezone} />
         )}
+        {tab === "messages" && <MessagesPanel timezone={settings.timezone} />}
         {tab === "settings" && <SettingsPanel initial={settings} />}
         {tab === "connection" && (
           <ConnectionPanel settings={settings} session={session} env={env} missingScopes={flash.missingScopes} />

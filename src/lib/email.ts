@@ -248,3 +248,119 @@ export function ownerNotification(d: BookingEmailData, cancelled = false) {
     text,
   };
 }
+
+/* ============================================================
+   Formulaire de contact
+   ============================================================ */
+
+export type ContactEmailData = {
+  locale: "fr" | "en";
+  name: string;
+  email: string;
+  phone?: string;
+  subject?: string;
+  body: string;
+  siteUrl: string;
+  businessEmail?: string;
+};
+
+/** Ce que reçoit l'artisan : le message, et de quoi répondre en un clic. */
+export function contactNotification(d: ContactEmailData) {
+  const t = T.fr;
+  const subject = d.subject?.trim();
+  const inner = `
+  <tr><td style="padding:34px 40px 10px;font-family:Helvetica,Arial,sans-serif;color:${INK};">
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.7;color:${MUTED};">
+      Nouveau message envoyé depuis le formulaire de contact du site.
+    </p>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+      ${row(t.client, `<strong>${esc(d.name)}</strong>`)}
+      ${row(t.email, `<a href="mailto:${esc(d.email)}" style="color:${GOLD};text-decoration:none;">${esc(d.email)}</a>`)}
+      ${d.phone ? row(t.phone, `<a href="tel:${esc(d.phone.replace(/[^\d+]/g, ""))}" style="color:${GOLD};text-decoration:none;">${esc(d.phone)}</a>`) : ""}
+      ${subject ? row("Objet", esc(subject)) : ""}
+    </table>
+    <div style="margin-top:26px;padding:22px 24px;background:${LINEN};border:1px solid #F0E6D2;">
+      <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:${GOLD};margin-bottom:12px;">Message</div>
+      <div style="font-size:15px;line-height:1.85;color:${INK};white-space:pre-wrap;">${esc(d.body)}</div>
+    </div>
+    <p style="margin:18px 0 0;font-size:12px;color:${MUTED};">
+      Répondez directement à ce courriel : votre réponse partira vers ${esc(d.email)}.
+    </p>
+  </td></tr>
+  <tr><td style="padding:24px 40px 34px;text-align:center;">${button(`mailto:${d.email}`, "Répondre")}</td></tr>`;
+
+  const text = [
+    "Nouveau message depuis le formulaire de contact.", "",
+    `${t.client} : ${d.name}`,
+    `${t.email} : ${d.email}`,
+    d.phone ? `${t.phone} : ${d.phone}` : "",
+    subject ? `Objet : ${subject}` : "",
+    "", "Message :", d.body, "",
+    `Répondez directement à ce courriel (${d.email}).`,
+  ].filter(Boolean).join("\n");
+
+  return {
+    subject: subject ? `Message du site — ${d.name} · ${subject}` : `Message du site — ${d.name}`,
+    html: shell(inner, `${d.name} — ${d.body.slice(0, 60)}`),
+    text,
+  };
+}
+
+const ACK = {
+  fr: {
+    subject: "Nous avons bien reçu votre message · NIVEX",
+    hi: (n: string) => `Bonjour ${n},`,
+    intro: "Merci de nous avoir écrit. Votre message est arrivé et nous vous répondons en général dans la journée.",
+    yours: "Votre message",
+    urgent: "C'est urgent ?",
+    urgentBody: "Appelez-nous, nous décrochons.",
+    cta: "Réserver une séance",
+    signoff: "À très bientôt,",
+    team: "NIVEX",
+  },
+  en: {
+    subject: "We received your message · NIVEX",
+    hi: (n: string) => `Hello ${n},`,
+    intro: "Thank you for writing. Your message arrived, and we usually reply the same day.",
+    yours: "Your message",
+    urgent: "In a hurry?",
+    urgentBody: "Call us — we pick up.",
+    cta: "Book a session",
+    signoff: "Talk soon,",
+    team: "NIVEX",
+  },
+} as const;
+
+/** Accusé de réception envoyé à la personne : elle sait que c'est parti. */
+export function contactAcknowledgement(d: ContactEmailData) {
+  const a = ACK[d.locale];
+  const inner = `
+  <tr><td style="padding:36px 40px 10px;font-family:Helvetica,Arial,sans-serif;color:${INK};">
+    <p style="margin:0 0 14px;font-size:16px;">${esc(a.hi(d.name.split(" ")[0]))}</p>
+    <p style="margin:0 0 26px;font-size:15px;line-height:1.75;color:${MUTED};">${esc(a.intro)}</p>
+    <div style="padding:22px 24px;background:${LINEN};border:1px solid #F0E6D2;">
+      <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:${GOLD};margin-bottom:12px;">${esc(a.yours)}</div>
+      <div style="font-size:14px;line-height:1.85;color:${MUTED};white-space:pre-wrap;">${esc(d.body)}</div>
+    </div>
+    <p style="margin:24px 0 4px;font-size:13px;color:${MUTED};">
+      <strong style="color:${INK};">${esc(a.urgent)}</strong> ${esc(a.urgentBody)}
+      <a href="tel:+14509431217" style="color:${GOLD};text-decoration:none;">+1 450 943 1217</a>
+    </p>
+  </td></tr>
+  <tr><td style="padding:22px 40px 34px;text-align:center;">
+    ${button(`${d.siteUrl}/${d.locale}/reserver`, a.cta)}
+    <p style="margin:20px 0 0;font-family:Helvetica,Arial,sans-serif;font-size:13px;color:${MUTED};">
+      ${esc(a.signoff)}<br><span style="font-family:Georgia,serif;letter-spacing:0.12em;color:${GOLD};">${esc(a.team)}</span>
+    </p>
+  </td></tr>`;
+
+  const text = [
+    a.hi(d.name.split(" ")[0]), "", a.intro, "",
+    `${a.yours} :`, d.body, "",
+    `${a.urgent} ${a.urgentBody} +1 450 943 1217`, "",
+    `${a.cta} : ${d.siteUrl}/${d.locale}/reserver`, "",
+    a.signoff, a.team,
+  ].join("\n");
+
+  return { subject: a.subject, html: shell(inner, a.intro), text };
+}

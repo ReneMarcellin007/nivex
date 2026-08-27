@@ -26,7 +26,12 @@ nus = [s for s in svgs if not any(k in s for k in ('aria-hidden', 'aria-label', 
 checks.append((f"svg étiquetés ou masqués ({len(svgs)})", not nus))
 
 inputs = re.findall(r'<(?:input|textarea|select)\b[^>]*>', html)
-unlabelled = [i for i in inputs if 'aria-label' not in i and 'id=' not in i and 'type="hidden"' not in i]
+# Les pots de miel anti-robot sont volontairement masqués aux technologies
+# d'assistance et retirés de l'ordre de tabulation : ils n'ont pas à être étiquetés.
+def exempt(tag):
+    return ('aria-hidden="true"' in tag) or ('type="hidden"' in tag) or ('tabindex="-1"' in tag)
+unlabelled = [i for i in inputs
+              if not exempt(i) and 'aria-label' not in i and 'id=' not in i]
 checks.append((f"champs étiquetables ({len(inputs)})", not unlabelled))
 
 fails = 0

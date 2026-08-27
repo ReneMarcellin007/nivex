@@ -128,6 +128,24 @@ async function bootstrap() {
       WHEN duplicate_table  THEN NULL;
     END $$`;
 
+  /* Messages du formulaire de contact. Conservés même si l'envoi du
+     courriel échoue : rien ne doit se perdre. */
+  await q`
+    CREATE TABLE IF NOT EXISTS nivex_messages (
+      id         uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      locale     text        NOT NULL DEFAULT 'fr',
+      name       text        NOT NULL,
+      email      text        NOT NULL,
+      phone      text,
+      subject    text,
+      body       text        NOT NULL,
+      email_sent boolean     NOT NULL DEFAULT false,
+      read_at    timestamptz,
+      created_at timestamptz NOT NULL DEFAULT now()
+    )`;
+
+  await q`CREATE INDEX IF NOT EXISTS nivex_messages_created_idx ON nivex_messages (created_at DESC)`;
+
   /* Journal d'audit léger — utile pour comprendre après coup. */
   await q`
     CREATE TABLE IF NOT EXISTS nivex_events (
