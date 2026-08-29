@@ -67,6 +67,28 @@ Voir [`.env.example`](.env.example).
 | `SESSION_SECRET` | signe les cookies d'administration (`openssl rand -base64 48`) |
 | `ADMIN_SETUP_CODE` | optionnel — exigé à la première connexion |
 
+## État actuel
+
+| | |
+|---|---|
+| Site en production | https://nivex-repassage.vercel.app |
+| Espace artisan | https://nivex-repassage.vercel.app/admin |
+| Diagnostic d'installation | https://nivex-repassage.vercel.app/api/health |
+| Hébergement | Vercel — déploiement automatique à chaque `push` sur `main` |
+
+**Ce qui reste à brancher** (les deux se voient sur `/api/health`) :
+
+1. **Base de données** — dans le tableau de bord Vercel du projet, onglet
+   *Storage* → *Create Database* → **Neon**. Vercel injecte `DATABASE_URL`
+   tout seul ; le schéma se crée au premier appel.
+2. **Identifiants Google** — voir *Console Google Cloud* plus bas, puis
+   poser `GOOGLE_CLIENT_ID` et `GOOGLE_CLIENT_SECRET` dans les variables
+   d'environnement Vercel.
+
+Tant que ce n'est pas fait, le site fonctionne et reste présentable : le
+formulaire de réservation affiche le numéro de téléphone, et le formulaire
+de contact invite à appeler. Rien ne casse.
+
 ## Développement
 
 ```bash
