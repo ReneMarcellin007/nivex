@@ -6,6 +6,7 @@ import { estimateCents, estimateMinutes, loadBusy, slotIsFree } from "./availabi
 import { createEvent, deleteEvent, ownerAccessToken, sendGmail, siteOrigin, GoogleError } from "./google";
 import { clientCancellation, clientConfirmation, ownerNotification, type BookingEmailData } from "./email";
 import { formatDateTime, minutesToText, formatMoney } from "./time";
+import { contactEmail, PHONE } from "./brand";
 
 /* ============================ Schéma d'entrée ============================ */
 
@@ -180,8 +181,8 @@ function emailData(b: Booking, s: Settings, origin: string): BookingEmailData {
     startsAt: b.startsAt, durationMinutes: b.durationMinutes, estimateCents: b.estimateCents,
     currency: b.currency, firstHourFree: b.firstHourFree, timezone: s.timezone,
     manageUrl: `${origin}/${b.locale}/reservation/${b.manageToken}`,
-    siteUrl: origin, businessPhone: "+1 450 943 1217",
-    businessEmail: s.ownerEmail ?? "styve1885@gmail.com",
+    siteUrl: origin, businessPhone: PHONE,
+    businessEmail: contactEmail(s),
   };
 }
 

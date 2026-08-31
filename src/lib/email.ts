@@ -38,7 +38,7 @@ function esc(s: string): string {
   return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 }
 
-function shell(inner: string, preheader: string): string {
+function shell(inner: string, preheader: string, contact = "styve1885@gmail.com"): string {
   return `<!doctype html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light only"><title>NIVEX</title></head>
@@ -55,7 +55,7 @@ function shell(inner: string, preheader: string): string {
   <tr><td style="padding:26px 40px 34px;border-top:1px solid #F0E6D2;text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:${MUTED};line-height:1.8;">
     NIVEX · Longueuil &amp; Rive-Sud<br>
     <a href="tel:+14509431217" style="color:${GOLD};text-decoration:none;">+1 450 943 1217</a> &nbsp;·&nbsp;
-    <a href="mailto:styve1885@gmail.com" style="color:${GOLD};text-decoration:none;">styve1885@gmail.com</a>
+    <a href="mailto:${esc(contact)}" style="color:${GOLD};text-decoration:none;">${esc(contact)}</a>
   </td></tr>
 </table>
 </td></tr></table></body></html>`;
@@ -189,7 +189,7 @@ export function clientConfirmation(d: BookingEmailData) {
     `NIVEX · ${d.businessPhone} · ${d.businessEmail}`,
   ].filter(Boolean).join("\n");
 
-  return { subject: t.subject(d.ref), html: shell(inner, `${when} — ${d.ref}`), text };
+  return { subject: t.subject(d.ref), html: shell(inner, `${when} — ${d.ref}`, d.businessEmail), text };
 }
 
 export function clientCancellation(d: BookingEmailData) {
@@ -204,7 +204,7 @@ export function clientCancellation(d: BookingEmailData) {
     <p style="margin:20px 0 0;font-size:13px;color:${MUTED};">${esc(t.cancelBye)}</p>
   </td></tr>`;
   const text = [t.hi(d.clientName.split(" ")[0]), "", t.cancelIntro, "", when, "", `${t.cancelCta}: ${d.siteUrl}/${d.locale}/reserver`].join("\n");
-  return { subject: t.cancelSubject(d.ref), html: shell(inner, t.cancelIntro), text };
+  return { subject: t.cancelSubject(d.ref), html: shell(inner, t.cancelIntro, d.businessEmail), text };
 }
 
 /** Fiche de mission pour l'artisan — dense, actionnable. */
@@ -244,7 +244,7 @@ export function ownerNotification(d: BookingEmailData, cancelled = false) {
 
   return {
     subject: cancelled ? t.ownerCancelSubject(d.clientName, d.ref) : t.ownerSubject(d.clientName, d.ref),
-    html: shell(inner, `${when} — ${d.clientName}`),
+    html: shell(inner, `${when} — ${d.clientName}`, d.businessEmail),
     text,
   };
 }
@@ -301,7 +301,7 @@ export function contactNotification(d: ContactEmailData) {
 
   return {
     subject: subject ? `Message du site — ${d.name} · ${subject}` : `Message du site — ${d.name}`,
-    html: shell(inner, `${d.name} — ${d.body.slice(0, 60)}`),
+    html: shell(inner, `${d.name} — ${d.body.slice(0, 60)}`, d.businessEmail),
     text,
   };
 }
@@ -362,5 +362,5 @@ export function contactAcknowledgement(d: ContactEmailData) {
     a.signoff, a.team,
   ].join("\n");
 
-  return { subject: a.subject, html: shell(inner, a.intro), text };
+  return { subject: a.subject, html: shell(inner, a.intro, d.businessEmail), text };
 }

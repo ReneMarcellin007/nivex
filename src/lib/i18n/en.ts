@@ -344,7 +344,7 @@ export const en: Dict = {
       short: "A few more words, please",
       rate: "You just wrote to us. Give us a few minutes to reply.",
       unavailable:
-        "Sending isn't working right now. Call +1 450 943 1217 or write to styve1885@gmail.com.",
+        "Sending isn't working right now. Call +1 450 943 1217 — we pick up.",
       generic: "Sending failed. Try again, or call us directly.",
     },
   },

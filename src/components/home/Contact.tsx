@@ -8,7 +8,7 @@ import type { Dict } from "@/lib/i18n";
 
 type Field = "name" | "email" | "message";
 
-export function Contact({ t, locale }: { t: Dict; locale: "fr" | "en" }) {
+export function Contact({ t, locale, businessEmail }: { t: Dict; locale: "fr" | "en"; businessEmail: string }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -161,9 +161,9 @@ export function Contact({ t, locale }: { t: Dict; locale: "fr" | "en" }) {
                 <div>
                   <dt className="text-[10px] uppercase tracking-[0.2em] text-ink-400">{t.contact.emailLabel}</dt>
                   <dd className="mt-1.5">
-                    <a href={t.brand.emailHref}
+                    <a href={`mailto:${businessEmail}`}
                       className="break-all text-[0.95rem] text-ink-700 transition-colors hover:text-gold-700">
-                      {t.brand.email}
+                      {businessEmail}
                     </a>
                   </dd>
                 </div>

@@ -342,7 +342,7 @@ export const fr = {
       short: "Quelques mots de plus, s'il vous plaît",
       rate: "Vous venez de nous écrire. Laissez-nous quelques minutes pour vous répondre.",
       unavailable:
-        "L'envoi ne fonctionne pas pour l'instant. Appelez-nous au +1 450 943 1217 ou écrivez à styve1885@gmail.com.",
+        "L'envoi ne fonctionne pas pour l'instant. Appelez-nous au +1 450 943 1217 — nous décrochons.",
       generic: "L'envoi a échoué. Réessayez, ou appelez-nous directement.",
     },
   },

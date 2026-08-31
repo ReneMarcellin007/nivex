@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getDict, isLocale } from "@/lib/i18n";
 import { getSettings } from "@/lib/settings";
+import { contactEmail } from "@/lib/brand";
 import { Hero } from "@/components/home/Hero";
 import { Marquee } from "@/components/home/Marquee";
 import { Story } from "@/components/home/Story";
@@ -29,7 +30,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     description: t.meta.description,
     slogan: t.brand.tagline,
     telephone: "+14509431217",
-    email: "styve1885@gmail.com",
+    email: contactEmail(settings),
     priceRange: "$$",
     areaServed: settings.serviceArea.prefixes.map((p) => ({ "@type": "PostalCodeRangeSpecification", postalCodeBegin: p })),
     address: { "@type": "PostalAddress", addressRegion: "QC", addressCountry: "CA", addressLocality: "Longueuil" },
@@ -65,7 +66,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <HowItWorks t={t} />
       <Pricing t={t} locale={locale} settings={settings} />
       <Faq t={t} />
-      <Contact t={t} locale={locale} />
+      <Contact t={t} locale={locale} businessEmail={contactEmail(settings)} />
       <ClosingCta t={t} locale={locale} />
     </>
   );
