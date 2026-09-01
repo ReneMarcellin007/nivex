@@ -9,10 +9,11 @@ Il décrit ce qui tourne, ce qui manque, et comment finir.
 
 | | |
 |---|---|
-| Site en production | https://nivex-repassage.vercel.app |
+| Domaine | https://nivexrepassage.ca — adresse canonique, à raccorder (§ 2.C) |
+| Adresse de repli | https://nivex-repassage.vercel.app — répond dès aujourd'hui |
 | Dépôt | https://github.com/ReneMarcellin007/nivex (public) |
 | Hébergement | Vercel, projet `nivex` — déploiement automatique à chaque `push` sur `main` |
-| Diagnostic | https://nivex-repassage.vercel.app/api/health |
+| Diagnostic | `/api/health` |
 
 Le site est **complet et en ligne** : page d'accueil bilingue FR/EN, tunnel de
 réservation en quatre étapes, formulaire de contact, espace artisan sur
@@ -27,7 +28,7 @@ donc rien à choisir.
 
 ---
 
-## 2. Ce qui manque — deux branchements
+## 2. Ce qui manque — trois branchements
 
 `GET /api/health` répond aujourd'hui `database: false, google: false`.
 Tant que c'est le cas, le site reste présentable mais dégradé : le formulaire
@@ -71,7 +72,7 @@ Le but : permettre à Styve de brancher **son propre** compte Google depuis
    - Nom : `NIVEX — site`
    - **URI de redirection autorisés** (les deux, exactement) :
      ```
-     https://nivex-repassage.vercel.app/api/auth/google/callback
+     https://nivexrepassage.ca/api/auth/google/callback
      http://localhost:3000/api/auth/google/callback
      ```
 5. Copier le **Client ID** et le **Client secret**, puis :
@@ -85,12 +86,43 @@ Le but : permettre à Styve de brancher **son propre** compte Google depuis
 > les clients remplissent un simple formulaire. Publier l'application
 > déclencherait une vérification Google de plusieurs semaines, inutile ici.
 
+### C. Nom de domaine (≈ 5 min de clics, puis attente de propagation)
+
+Le domaine retenu est **`nivexrepassage.ca`**. Le code n'a rien à savoir de
+plus : `siteOrigin()` (`src/lib/google.ts`) lit `NEXT_PUBLIC_SITE_URL`, et le
+plan de site, le `robots.txt`, les métadonnées et l'URI de redirection Google
+en découlent tout seuls.
+
+1. **Acheter le domaine** s'il ne l'est pas déjà. Un `.ca` exige une présence
+   canadienne — NIVEX étant à Longueuil, la condition est remplie.
+2. **Vercel** → projet `nivex` → *Settings* → *Domains* → ajouter
+   `nivexrepassage.ca` **et** `www.nivexrepassage.ca`. Garder l'apex comme
+   adresse canonique et laisser Vercel rediriger le `www` vers lui.
+3. **Créer les enregistrements DNS chez le registraire**, en recopiant
+   exactement ce que Vercel affiche à l'étape précédente. Typiquement un
+   `A` sur l'apex vers `76.76.21.21` et un `CNAME` sur `www` vers
+   `cname.vercel-dns.com` — mais **ce sont les valeurs affichées par Vercel
+   qui font foi**, pas celles-ci.
+4. **Vercel** → *Settings* → *Environment Variables* → poser
+   `NEXT_PUBLIC_SITE_URL` = `https://nivexrepassage.ca` en *Production*, puis
+   redéployer (`vercel deploy --prod`, ou un `push` sur `main`).
+
+Le certificat HTTPS est émis automatiquement une fois le DNS propagé —
+quelques minutes en général, jusqu'à 48 h dans le pire des cas.
+
+> **À ne pas oublier.** L'URI de redirection déclarée dans la Console Google
+> Cloud (§ B.4) doit pointer vers le domaine final. Si Google a été branché
+> avant le domaine, il faut y retourner ajouter
+> `https://nivexrepassage.ca/api/auth/google/callback`, sinon la connexion à
+> `/admin` échoue avec `redirect_uri_mismatch`. Garder l'ancienne URI Vercel
+> quelques jours ne coûte rien et évite une coupure pendant la bascule.
+
 ---
 
 ## 3. Vérifier que tout marche
 
 ```bash
-curl -s https://nivex-repassage.vercel.app/api/health | python3 -m json.tool
+curl -s https://nivexrepassage.ca/api/health | python3 -m json.tool
 ```
 
 Attendu : `database: true`, `google: true`.

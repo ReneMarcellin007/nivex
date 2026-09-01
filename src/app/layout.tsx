@@ -4,7 +4,7 @@ import { cormorant, jost } from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://nivex.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://nivexrepassage.ca"),
   title: "NIVEX — Repassage à domicile de prestige",
   description:
     "Un artisan du repassage se déplace chez vous, avec son matériel professionnel. Longueuil, Rive-Sud et Montérégie. Première heure offerte.",

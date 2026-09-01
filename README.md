@@ -71,12 +71,13 @@ Voir [`.env.example`](.env.example).
 
 | | |
 |---|---|
-| Site en production | https://nivex-repassage.vercel.app |
-| Espace artisan | https://nivex-repassage.vercel.app/admin |
-| Diagnostic d'installation | https://nivex-repassage.vercel.app/api/health |
+| Domaine | https://nivexrepassage.ca — adresse canonique, à raccorder |
+| Adresse de repli | https://nivex-repassage.vercel.app — répond dès aujourd'hui |
+| Espace artisan | `/admin` |
+| Diagnostic d'installation | `/api/health` |
 | Hébergement | Vercel — déploiement automatique à chaque `push` sur `main` |
 
-**Ce qui reste à brancher** (les deux se voient sur `/api/health`) :
+**Ce qui reste à brancher** (les deux premiers se voient sur `/api/health`) :
 
 1. **Base de données** — dans le tableau de bord Vercel du projet, onglet
    *Storage* → *Create Database* → **Neon**. Vercel injecte `DATABASE_URL`
@@ -84,6 +85,10 @@ Voir [`.env.example`](.env.example).
 2. **Identifiants Google** — voir *Console Google Cloud* plus bas, puis
    poser `GOOGLE_CLIENT_ID` et `GOOGLE_CLIENT_SECRET` dans les variables
    d'environnement Vercel.
+3. **Nom de domaine** — ajouter `nivexrepassage.ca` dans *Settings* →
+   *Domains*, créer les enregistrements DNS que Vercel indique, puis poser
+   `NEXT_PUBLIC_SITE_URL` sur `https://nivexrepassage.ca`. Détail complet
+   dans [`HANDOFF.md`](HANDOFF.md) § 2.C.
 
 Tant que ce n'est pas fait, le site fonctionne et reste présentable : le
 formulaire de réservation affiche le numéro de téléphone, et le formulaire
