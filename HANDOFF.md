@@ -93,16 +93,28 @@ plus : `siteOrigin()` (`src/lib/google.ts`) lit `NEXT_PUBLIC_SITE_URL`, et le
 plan de site, le `robots.txt`, les métadonnées et l'URI de redirection Google
 en découlent tout seuls.
 
-1. **Acheter le domaine** s'il ne l'est pas déjà. Un `.ca` exige une présence
-   canadienne — NIVEX étant à Longueuil, la condition est remplie.
-2. **Vercel** → projet `nivex` → *Settings* → *Domains* → ajouter
+**État au 1er septembre 2026** : le domaine est acheté et sa zone DNS
+répond, mais `nivexrepassage.ca` et `www` pointent tous deux sur
+`213.186.33.5` — une adresse d'OVH, donc la page de parcage du registraire,
+pas Vercel. Il reste à rediriger la zone.
+
+1. **Vercel** → projet `nivex` → *Settings* → *Domains* → ajouter
    `nivexrepassage.ca` **et** `www.nivexrepassage.ca`. Garder l'apex comme
-   adresse canonique et laisser Vercel rediriger le `www` vers lui.
-3. **Créer les enregistrements DNS chez le registraire**, en recopiant
-   exactement ce que Vercel affiche à l'étape précédente. Typiquement un
-   `A` sur l'apex vers `76.76.21.21` et un `CNAME` sur `www` vers
-   `cname.vercel-dns.com` — mais **ce sont les valeurs affichées par Vercel
-   qui font foi**, pas celles-ci.
+   adresse canonique et laisser Vercel rediriger le `www` vers lui. Vercel
+   affiche alors les enregistrements exacts à créer.
+2. **Chez OVH** → *Noms de domaine* → `nivexrepassage.ca` → *Zone DNS* :
+   - **supprimer** l'enregistrement `A` de l'apex vers `213.186.33.5` (et son
+     `AAAA` s'il existe) — tant qu'il est là, il gagne et le parcage OVH
+     continue de s'afficher ;
+   - **créer** un `A` sur l'apex (`@`) vers `76.76.21.21` ;
+   - **remplacer** l'enregistrement de `www` par un `CNAME` vers
+     `cname.vercel-dns.com`.
+
+   Ce sont **les valeurs affichées par Vercel à l'étape 1 qui font foi**, pas
+   celles recopiées ici.
+3. **Ne pas basculer les serveurs de noms vers Vercel** si une adresse
+   courriel est hébergée chez OVH : cela déplacerait aussi les `MX` et
+   couperait le courriel. Modifier la zone DNS suffit.
 4. **Vercel** → *Settings* → *Environment Variables* → poser
    `NEXT_PUBLIC_SITE_URL` = `https://nivexrepassage.ca` en *Production*, puis
    redéployer (`vercel deploy --prod`, ou un `push` sur `main`).
